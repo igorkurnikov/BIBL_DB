@@ -1,0 +1,3 @@
+import biblpy
+biblpy.gui()
+

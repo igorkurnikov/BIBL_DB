@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{3281C3FF-8BD4-4E26-8DC2-60EBCB6D10A4}</ProjectGuid>
+    <RootNamespace>bibldblib</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>_bibldbc</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)..\biblpy</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>_bibldbc_d</TargetName>
+    <TargetExt>.pyd</TargetExt>
+    <ReferencePath>..\..\..\harlem;$(ReferencePath)</ReferencePath>
+    <OutDir>$(SolutionDir)..\biblpy</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <ConformanceMode>Default</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\MYPROG\Phoenix\ext\wxWidgets\include;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswu;C:\MYPROG\vcpkg\installed\x64-windows\include;C:\MYPROG\vcpkg\installed\x64-windows\include\python3.9;C:\MYPROG\vcpkg\installed\x64-windows\include\mysql;$(MSBuildProjectDirectory)\..\bibl_db_cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\MYPROG\vcpkg\installed\x64-windows\lib;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\Python38\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;ws2_32.lib;comctl32.lib;wxbase31u.lib;wxbase31u_net.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;wxmsw31u_stc.lib;jpeg.lib;tiff.lib;zlib.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <ConformanceMode>Default</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Python38\include;C:\MYPROG\Phoenix\ext\wxWidgets\include;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswud;C:\MYPROG\vcpkg\installed\x64-windows\include;C:\MYPROG\vcpkg\installed\x64-windows\include\mysql;$(MSBuildProjectDirectory)\..\bibl_db_cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\Python38\libs;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\MYPROG\vcpkg\installed\x64-windows\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;ws2_32.lib;Rpcrt4.lib;comctl32.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;wxmsw31ud_stc.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\bibl_db_cpp\bibldb.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\bibldb_python.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\bibl_db_main.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\cwos.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\DataObject.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\dialogs_bibl_db.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\ha_wx_res_5_wdr.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\script_editor.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\tinyxml.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\tinyxmlerror.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\tinyxmlparser.cpp" />
+    <ClCompile Include="x64\Debug\bibldb_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="x64\Release\bibldb_wrap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\bibl_db_cpp\bibldb.h" />
+    <ClInclude Include="..\bibl_db_cpp\cwos.h" />
+    <ClInclude Include="..\bibl_db_cpp\DataObject.h" />
+    <ClInclude Include="..\bibl_db_cpp\dialogs_bibl_db.h" />
+    <ClInclude Include="..\bibl_db_cpp\ha_wx_res_5_wdr.h" />
+    <ClInclude Include="..\bibl_db_cpp\resource.h" />
+    <ClInclude Include="..\bibl_db_cpp\script_editor.h" />
+    <ClInclude Include="..\bibl_db_cpp\tinyxml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\bibl_db_cpp\bibldbc.i">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(SolutionDir)bibldbc.i
+copy $(IntDir)bibldbc.py $(OutputPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate Python interface</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)bibldb_wrap.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(SolutionDir)bibldbc.i
+copy $(IntDir)bibldbc.py $(OutputPath)</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate Python interface</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)bibldb_wrap.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <None Include="..\bibl_db_cpp\ha_wx_res_5.wdr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\bibl_db_cpp\icon1.ico" />
+    <Image Include="..\bibl_db_cpp\icon2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\bibl_db_cpp\bibl_db_cpp.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

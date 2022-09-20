@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\bibl_db_cpp\bibl_db_main.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\bibldb.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\bibldb_python.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\dialogs_bibl_db.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\ha_wx_res_5_wdr.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\tinyxml.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\tinyxmlerror.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\tinyxmlparser.cpp" />
+    <ClCompile Include="x64\Release\bibldb_wrap.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\cwos.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\DataObject.cpp" />
+    <ClCompile Include="x64\Debug\bibldb_wrap.cpp" />
+    <ClCompile Include="..\bibl_db_cpp\script_editor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\bibl_db_cpp\bibldb.h" />
+    <ClInclude Include="..\bibl_db_cpp\dialogs_bibl_db.h" />
+    <ClInclude Include="..\bibl_db_cpp\ha_wx_res_5_wdr.h" />
+    <ClInclude Include="..\bibl_db_cpp\resource.h" />
+    <ClInclude Include="..\bibl_db_cpp\tinyxml.h" />
+    <ClInclude Include="..\bibl_db_cpp\cwos.h" />
+    <ClInclude Include="..\bibl_db_cpp\DataObject.h" />
+    <ClInclude Include="..\bibl_db_cpp\script_editor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\bibl_db_cpp\ha_wx_res_5.wdr" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\bibl_db_cpp\icon1.ico" />
+    <Image Include="..\bibl_db_cpp\icon2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\bibl_db_cpp\bibl_db_cpp.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\bibl_db_cpp\bibldbc.i" />
+  </ItemGroup>
+</Project>
