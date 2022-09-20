@@ -73,13 +73,13 @@
     <TargetName>_bibldbc</TargetName>
     <TargetExt>.pyd</TargetExt>
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)..\biblpy</OutDir>
+    <OutDir>$(SolutionDir)biblpy</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>_bibldbc_d</TargetName>
     <TargetExt>.pyd</TargetExt>
     <ReferencePath>..\..\..\harlem;$(ReferencePath)</ReferencePath>
-    <OutDir>$(SolutionDir)..\biblpy</OutDir>
+    <OutDir>$(SolutionDir)biblpy</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -99,7 +99,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\MYPROG\vcpkg\installed\x64-windows\lib;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\Python38\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\MYPROG\vcpkg\installed\x64-windows\lib;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libmysql.lib;ws2_32.lib;comctl32.lib;wxbase31u.lib;wxbase31u_net.lib;wxmsw31u_core.lib;wxmsw31u_adv.lib;wxmsw31u_stc.lib;jpeg.lib;tiff.lib;zlib.lib;boost_filesystem-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -122,13 +122,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>Default</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Python38\include;C:\MYPROG\Phoenix\ext\wxWidgets\include;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswud;C:\MYPROG\vcpkg\installed\x64-windows\include;C:\MYPROG\vcpkg\installed\x64-windows\include\mysql;$(MSBuildProjectDirectory)\..\bibl_db_cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\MYPROG\Phoenix\ext\wxWidgets\include;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswud;C:\MYPROG\vcpkg\installed\x64-windows\include\python3.9;C:\MYPROG\vcpkg\installed\x64-windows\include;C:\MYPROG\vcpkg\installed\x64-windows\include\mysql;$(MSBuildProjectDirectory)\..\bibl_db_cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Python38\libs;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\MYPROG\vcpkg\installed\x64-windows\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\MYPROG\vcpkg\installed\x64-windows\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libmysql.lib;ws2_32.lib;Rpcrt4.lib;comctl32.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;wxmsw31ud_stc.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -180,11 +180,11 @@
   <ItemGroup>
     <CustomBuild Include="..\bibl_db_cpp\bibldbc.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(SolutionDir)bibldbc.i
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(SolutionDir)\bibl_db_cpp\bibldbc.i
 copy $(IntDir)bibldbc.py $(OutputPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate Python interface</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)bibldb_wrap.cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(SolutionDir)bibldbc.i
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(SolutionDir)bibl_db_cpp\bibldbc.i
 copy $(IntDir)bibldbc.py $(OutputPath)</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate Python interface</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)bibldb_wrap.cpp;%(Outputs)</Outputs>

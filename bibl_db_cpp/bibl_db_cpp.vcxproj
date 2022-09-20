@@ -243,11 +243,10 @@
   <ItemGroup>
     <CustomBuild Include="bibldbc.i">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(OutDirFullPath)bibl_db_cpp\bibldbc.i
-</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(MSBuildProjectDirectory)\bibldbc.i</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate Python interface file bibldb_wrap.cpp </Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)bibldb_wrap.cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(OutDirFullPath)bibl_db_cpp\bibldbc.i</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">c:\swig\swig.exe -python -py3 -shadow -c++ -D_MSC_VER -o $(IntDir)bibldb_wrap.cpp   $(MSBuildProjectDirectory)\bibldbc.i</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate Python interface file bibldb_wrap.cpp </Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)bibldb_wrap.cpp;%(Outputs)</Outputs>
     </CustomBuild>

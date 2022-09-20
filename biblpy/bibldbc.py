@@ -1615,6 +1615,9 @@ class BiblDB(_object):
     def ImportRefsBibTeXStr(self, refs_str: 'std::string', ref_info: 'BibRefInfo'=None) -> "int":
         return _bibldbc.BiblDB_ImportRefsBibTeXStr(self, refs_str, ref_info)
 
+    def ImportRefsNBIB(self, stream: 'istream', ref_info: 'BibRefInfo'=None) -> "int":
+        return _bibldbc.BiblDB_ImportRefsNBIB(self, stream, ref_info)
+
     def AxxFun(self) -> "int":
         return _bibldbc.BiblDB_AxxFun(self)
 

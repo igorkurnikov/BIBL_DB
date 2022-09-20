@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/bibl_db_cpp.exe
+/bibl_db_cpp_deb.exe
+*.dll
+*.exp
+/biblpy/_bibldbc_d.pyd
+/biblpy/_bibldbc_d.lib
+/biblpy/_bibldbc.lib
+/biblpy/_bibldbc.pyd
