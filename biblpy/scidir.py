@@ -22,9 +22,9 @@ class scidir:
         if( driver_p != None ):
             self.driver = driver_p
         else:
-            self.init_webdriver()
+            self.InitWebDriver()
 
-    def init_webdriver( self ):
+    def InitWebDriver( self ):
         chrome_options = webdriver.ChromeOptions() 
         chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])  # not to show controlled by automation software banner
         self.driver = webdriver.Chrome(options=chrome_options)  

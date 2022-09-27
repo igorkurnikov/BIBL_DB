@@ -4794,7 +4794,7 @@ int BiblDB::InitWebDriver()
 		PyErr_Clear();
 	}
 	int ires = PyRun_SimpleString("import biblpy");
-	ires = PyRun_SimpleString("driver = biblpy.init_webdriver()");
+	ires = PyRun_SimpleString("driver = biblpy.InitWebDriver()");
 	ires = PyRun_SimpleString("wos = biblpy.Wos(driver)");
 	ires = PyRun_SimpleString("gs  = biblpy.GScholar(driver)");
 	// ires = PyRun_SimpleString("wos.open_main_page()");

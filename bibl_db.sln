@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bibl_db_cpp", ".\bibl_db_cpp\bibl_db_cpp.vcxproj", "{33A97D0E-AEA2-4C2E-A09A-A6ADDFA9D117}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bibl_db_cpp", "bibl_db_cpp\bibl_db_cpp.vcxproj", "{33A97D0E-AEA2-4C2E-A09A-A6ADDFA9D117}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bibl_db_lib", ".\bibl_db_lib\bibl_db_lib.vcxproj", "{3281C3FF-8BD4-4E26-8DC2-60EBCB6D10A4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bibl_db_lib", "bibl_db_lib\bibl_db_lib.vcxproj", "{3281C3FF-8BD4-4E26-8DC2-60EBCB6D10A4}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "biblpy", ".\biblpy\biblpy.pyproj", "{F09E0838-C64A-4159-B690-4EE00BB4828D}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "biblpy", "biblpy\biblpy.pyproj", "{F09E0838-C64A-4159-B690-4EE00BB4828D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

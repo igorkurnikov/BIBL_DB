@@ -21,14 +21,21 @@ __all__= ["webofscience","gscholar","scidir"]
 
 driver = None
 
-def init_webdriver():
-    chrome_options = webdriver.ChromeOptions() 
-    chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])  # not to show controlled by automation software banner
+def InitWebDriver():
+    options = webdriver.ChromeOptions() 
+    prefs = {"plugins.always_open_pdf_externally": True}
+    #prefs = {"plugins.always_open_pdf_externally": True, "download.default_directory": download_dir }
+    #options.add_experimental_option("excludeSwitches", ['enable-automation'])  # not to show controlled by automation software banner
+    options.add_experimental_option("prefs", prefs)
     #chrome_options.add_argument("disable-web-security" )  # allow to login removing non-secure browser error
     #chrome_options.add_argument('user-data-dir' )
     #chrome_options.add_argument('allow-running-insecure-content' )
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(options=options)
     return driver
+
+def StopWebDriver():
+    if( driver ): driver.quit()
+    driver = None
 
 def save_url_to_file( url, fname ):
         r = requests.get(url, allow_redirects=True)
@@ -47,9 +54,12 @@ def get_download_path():
         return location
     else:
         return os.path.join(os.path.expanduser('~'), 'downloads')
+    #  from pathlib import Path
+    #  return str(Path.home() / "Downloads")
+
 
 
 # print("biblpy.__init__()")
-# driver = init_webdriver()
+# driver = InitWebDriver()
 
 

@@ -5,16 +5,18 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f09e0838-c64a-4159-b690-4ee00bb4828d}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>__main__.py</StartupFile>
+    <StartupFile>tests\test_load_acs_pdf.py</StartupFile>
     <SearchPath>..\biblpy;..\..\BIBL_DB</SearchPath>
-    <WorkingDirectory>D:\TESTS</WorkingDirectory>
+    <WorkingDirectory>C:\MYPROG\BIBL_DB\biblpy\tests\</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>Global|PythonCore|3.9</InterpreterId>
-    <EnableNativeCodeDebugging>True</EnableNativeCodeDebugging>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <IsWindowsApplication>False</IsWindowsApplication>
     <TestFramework>Pytest</TestFramework>
+    <InterpreterPath>
+    </InterpreterPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -38,6 +40,7 @@
     <Compile Include="tests\test_init_wos_driver.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tests\test_load_acs_pdf.py" />
     <Compile Include="tests\test_open_wos_main_page.py">
       <SubType>Code</SubType>
     </Compile>

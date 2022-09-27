@@ -1,6 +1,6 @@
 import biblpy
 
-driver = biblpy.init_webdriver()
+driver = biblpy.InitWebDriver()
 wos = biblpy.Wos( driver )
 wos.open_main_page()
 
