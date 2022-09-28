@@ -98,7 +98,10 @@ def save_url_to_file( url, fname ):
     fn_d = getDownLoadedFileName(biblpy.driver,15)
     d_dir = get_download_path()
     fn_d_full = os.path.join(d_dir,fn_d)
-    shutil.copyfile(fn_d_full, fname)
+    try:
+        shutil.copyfile(fn_d_full, fname)
+    except OSError as error:
+        print(error)
 
 def get_download_path():
     """Returns the default downloads path for linux or windows"""

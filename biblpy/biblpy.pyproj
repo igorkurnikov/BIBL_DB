@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f09e0838-c64a-4159-b690-4ee00bb4828d}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>tests\test_load_acs_pdf.py</StartupFile>
+    <StartupFile>tests\test_get_paper_by_doi_biblpy.py</StartupFile>
     <SearchPath>..\biblpy;..\..\BIBL_DB</SearchPath>
     <WorkingDirectory>C:\MYPROG\BIBL_DB\biblpy\tests\</WorkingDirectory>
     <OutputPath>.</OutputPath>
