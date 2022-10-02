@@ -6459,6 +6459,12 @@ int BiblDB::GotoGScholarRefDriver(BiblRef& ref)
 		RunPythonScriptInString(cmd);
 		cmd = std::string("gs.find_ref_by_title(") + "\"" + ref.title + "\"" + ")";
 		RunPythonScriptInString(cmd);
+		cmd = std::string("import biblpy.gs");
+		RunPythonScriptInString(cmd);
+		cmd = std::string("dlg1 = biblpy.gs.GSRefDlg(None, -1, \"Test1\")");
+		RunPythonScriptInString(cmd);
+		cmd = "dlg1.Show()";
+		RunPythonScriptInString(cmd);
 	}
 	else
 	{
