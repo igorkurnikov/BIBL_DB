@@ -1173,7 +1173,7 @@ wxMenuBar *bibl_db_menu()
     item0->Append( item2, wxT("Edit ") );
     
     wxMenu* item3 = new wxMenu;
-    item3->Append( IDM_InitWebDriver, wxT("Init Webdriver"), wxT("") );
+    item3->Append( IDM_INIT_WEBDRIVER, wxT("Init Webdriver"), wxT("") );
     item3->Append( UPDATE_WOS_IDS, wxT("Update Web of Science Session IDs"), wxT("") );
     item3->Append( UPDATE_WOS_ID_REMOTE, wxT("Update WOS IDs Remote Access  "), wxT("") );
     item3->Append( IDM_GOTO_MAIN_WOS, wxT("Go to Main WOS Page"), wxT("") );
@@ -1187,6 +1187,7 @@ wxMenuBar *bibl_db_menu()
     wxMenu* item4 = new wxMenu;
     item4->Append( IDC_LOAD_ALL_WWW, wxT("Load all displayed refs from WWW"), wxT("") );
     item4->Append( IDC_LOAD_MARKED_WWW, wxT("Load Marked refs from WWW"), wxT("") );
+    item4->Append( IDM_GS_DIALOG, wxT("Open Google Scholar Dialog"), wxT("") );
     item0->Append( item4, wxT("WWW bibl") );
     
     wxMenu* item5 = new wxMenu;

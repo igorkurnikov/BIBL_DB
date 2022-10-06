@@ -27,9 +27,10 @@
     <Compile Include="gs\gs_ref_dlg.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="gscholar.py">
+    <Compile Include="gs\gscholar.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="gs\gs_ref_dlg_GUI.py" />
     <Compile Include="gs\__init__.py">
       <SubType>Code</SubType>
     </Compile>
@@ -79,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="gs\gs_dlg.wxg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>

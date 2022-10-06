@@ -16,12 +16,8 @@ class GScholar:
         if( driver_p != None ):
             self.driver = driver_p
         else:
-            self.InitWebDriver()
-
-    def InitWebDriver( self ):
-        chrome_options = webdriver.ChromeOptions() 
-        chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])  # not to show controlled by automation software banner
-        self.driver = webdriver.Chrome(options=chrome_options)  
+            self.driver = biblpy.get_webdriver( use_user_data = True )
+ 
 
     def open_main_page( self ):
         self.driver.get(self.GSCHOLAR_URL)
@@ -42,10 +38,11 @@ class GScholar:
     def find_info_from_refs( self ): 
         """ get information from the list of references """
 
-        elem_ccl_mid = self.driver.find_element_by_id("gs_res_ccl_mid")
+        
+        elem_ccl_mid = self.driver.find_element(By.ID,"gs_res_ccl_mid")
         print( elem_ccl_mid )
         if( elem_ccl_mid ):
-            refs_elems = elem_ccl_mid.find_elements_by_class_name("gs_scl")
+            refs_elems = elem_ccl_mid.find_elements(By.CLASS_NAME,"gs_scl")
             print("num refs = " + str(len(refs_elems)))
             for ref_el in refs_elems:
                 print(ref_el)

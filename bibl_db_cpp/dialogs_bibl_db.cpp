@@ -1094,6 +1094,15 @@ void BiblDlg::LoadWWWMarkedRefs(wxCommandEvent& event)
 	}
 }
 
+void BiblDlg::OnGSDialog(wxCommandEvent& event)
+{
+	bibl_db->RunPythonScriptInString("import biblpy");
+	bibl_db->RunPythonScriptInString("gs_m = biblpy.GScholar()");
+	bibl_db->RunPythonScriptInString("gs_m.open_main_page()");
+	bibl_db->RunPythonScriptInString("dlg_gs = biblpy.GSRefDlg()");
+	bibl_db->RunPythonScriptInString("dlg_gs.Show()");
+}
+
 void BiblDlg::DelKeyWordsRefs(wxCommandEvent& event)
 {
 	TransferDataFromWindow();
@@ -1154,7 +1163,7 @@ BEGIN_EVENT_TABLE(BiblDlg, wxFrame)
 	EVT_MENU(IDM_PYTHON_WIN,       BiblDlg::OnNewPythonWin)
 	EVT_BUTTON(IDC_SELECT_AUTH,    BiblDlg::OnSelectAuthors)
 	EVT_CHECKBOX(IDC_SHOW_CITING,  BiblDlg::OnShowCiting)
-	EVT_MENU(IDM_InitWebDriver,   BiblDlg::OnInitWebDriver)
+	EVT_MENU(IDM_INIT_WEBDRIVER,   BiblDlg::OnInitWebDriver)
 	EVT_MENU(UPDATE_WOS_IDS,       BiblDlg::OnUpdateWOSID)
 	EVT_MENU(UPDATE_WOS_ID_REMOTE, BiblDlg::OnUpdateWOSIDRemote)
 	EVT_MENU(IMPORT_WOS_FILES,     BiblDlg::OnImportWOSFile)
@@ -1164,6 +1173,7 @@ BEGIN_EVENT_TABLE(BiblDlg, wxFrame)
 	EVT_MENU(IDM_WOS_SEARCH_PARS,  BiblDlg::WOSSearchPars)
 	EVT_MENU(IDC_LOAD_ALL_WWW,     BiblDlg::LoadWWWAllRefs)
 	EVT_MENU(IDC_LOAD_MARKED_WWW,  BiblDlg::LoadWWWMarkedRefs)
+	EVT_MENU(IDM_GS_DIALOG,        BiblDlg::OnGSDialog)
 	EVT_MENU(IDM_IMPORT_REFS,  BiblDlg::OnImportRefs)
 	EVT_MENU(IDM_SORT_BY_AUTHOR,        BiblDlg::OnSortByAuthor)
 	EVT_MENU(IDM_MARK_ALL,        BiblDlg::OnMarkAll)

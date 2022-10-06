@@ -201,7 +201,7 @@ const int IDM_UNMARK_ALL = 10149;
 const int SET_KEYW_REFS = 10150;
 const int DELETE_KEYW_REFS = 10151;
 const int DELETE_REFS = 10152;
-const int IDM_InitWebDriver = 10153;
+const int IDM_INIT_WEBDRIVER = 10153;
 const int UPDATE_WOS_IDS = 10154;
 const int UPDATE_WOS_ID_REMOTE = 10155;
 const int IDM_GOTO_MAIN_WOS = 10156;
@@ -212,18 +212,19 @@ const int IDM_WOS_SEARCH_PARS = 10160;
 const int WOS_GO_MARKED_LIST = 10161;
 const int IDC_LOAD_ALL_WWW = 10162;
 const int IDC_LOAD_MARKED_WWW = 10163;
-const int IDM_NEW_BROWSE_REFS_WIN = 10164;
-const int IDM_PYTHON_WIN = 10165;
-const int IDM_IMPORT_REFS = 10166;
+const int IDM_GS_DIALOG = 10164;
+const int IDM_NEW_BROWSE_REFS_WIN = 10165;
+const int IDM_PYTHON_WIN = 10166;
+const int IDM_IMPORT_REFS = 10167;
 wxMenuBar *bibl_db_menu();
 
-const int IDM_MERGE_JOURNALS = 10167;
-const int IDC_LOAD_JRN_LIST_1 = 10168;
-const int IDC_LOAD_JRN_LIST_2 = 10169;
-const int IDC_LOAD_JRN_LIST_3 = 10170;
+const int IDM_MERGE_JOURNALS = 10168;
+const int IDC_LOAD_JRN_LIST_1 = 10169;
+const int IDC_LOAD_JRN_LIST_2 = 10170;
+const int IDC_LOAD_JRN_LIST_3 = 10171;
 wxMenuBar *journals_menu();
 
-const int IDM_CURRENT_UPDATE_TIME = 10171;
+const int IDM_CURRENT_UPDATE_TIME = 10172;
 wxMenuBar *edit_ref_menu();
 
 // Declare toolbar functions

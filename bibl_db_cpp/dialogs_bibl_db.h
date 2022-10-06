@@ -65,6 +65,7 @@ public:
 
 	void LoadWWWAllRefs   (wxCommandEvent& event);
 	void LoadWWWMarkedRefs(wxCommandEvent& event);
+	void OnGSDialog(wxCommandEvent& event);
 
 	void OnImportRefs(wxCommandEvent& event);
 	void OnSortByAuthor(wxCommandEvent& event);

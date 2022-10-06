@@ -7,9 +7,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import WebDriverException
+
 from .webofscience import * 
-from .gscholar import *
 from .scidir import *
+from .gs     import *
 from .gui import *
 
 bibldbc_loaded = 0
@@ -21,24 +22,26 @@ except:
 
 name = "biblpy"
 
-__all__= ["webofscience","gscholar","scidir"]
+__all__= ["webofscience","gscholar","scidir","gs"]
 
 driver = None
 
-def InitWebDriver():
+def InitWebDriver( use_user_data = False ):
     options = webdriver.ChromeOptions() 
     prefs = {"plugins.always_open_pdf_externally": True}
     #prefs = {"plugins.always_open_pdf_externally": True, "download.default_directory": download_dir }
     #options.add_experimental_option("excludeSwitches", ['enable-automation'])  # not to show controlled by automation software banner
     options.add_experimental_option("prefs", prefs)
-    #chrome_options.add_argument("disable-web-security" )  # allow to login removing non-secure browser error
+    if use_user_data : 
+        options.add_argument('user-data-dir=C:/Users/igor/AppData/Local/Google/Chrome/User Data')
+    #options.add_argument("disable-web-security" )  # allow to login removing non-secure browser error
     #chrome_options.add_argument('user-data-dir' )
     #chrome_options.add_argument('allow-running-insecure-content' )
     driver = webdriver.Chrome(options=options)
     return driver
 
-def get_webdriver():
-    if( not driver or not is_webdriver_alive(driver) ): biblpy.driver = InitWebDriver()
+def get_webdriver( use_user_data = False ):
+    if( not driver or not is_webdriver_alive(driver) ): biblpy.driver = InitWebDriver( use_user_data )
     return biblpy.driver
 
 def StopWebDriver():
