@@ -1099,7 +1099,7 @@ void BiblDlg::OnGSDialog(wxCommandEvent& event)
 	bibl_db->RunPythonScriptInString("import biblpy");
 	bibl_db->RunPythonScriptInString("gs_m = biblpy.GScholar()");
 	bibl_db->RunPythonScriptInString("gs_m.open_main_page()");
-	bibl_db->RunPythonScriptInString("dlg_gs = biblpy.GSRefDlg()");
+	bibl_db->RunPythonScriptInString("dlg_gs = biblpy.GSRefDlg(use_user_data = True, gs_m = gs_m)");
 	bibl_db->RunPythonScriptInString("dlg_gs.Show()");
 }
 

@@ -3,11 +3,13 @@ from .gscholar import *
 
 class GSRefDlg(gs_ref_dlg_GUI):
     
-    def __init__(self,parent=None,id=-1,title="Google Scholar Dialog"):
+    def __init__(self,parent=None,id=-1,title="Google Scholar Dialog", use_user_data = False, gs_m = None ):
         parent = wx.FindWindowByName("Bibliographic Database")
         gs_ref_dlg_GUI.__init__(self,parent,id,title)
-        self.gs_m = GScholar()
-        pass
+        if( gs_m ):
+            self.gs_m = gs_m
+        else:    
+            self.gs_m = GScholar(use_user_data = use_user_data )
     
     def OnTest1(self,event):
         print("test1")

@@ -11,7 +11,7 @@ class GScholar:
 
     GSCHOLAR_URL = "https://scholar.google.com/"
 
-    def __init__( self, driver_p = None):
+    def __init__( self, driver_p = None, use_user_data = False ):
 
         if( driver_p != None ):
             self.driver = driver_p

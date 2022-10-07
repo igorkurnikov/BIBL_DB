@@ -4804,7 +4804,7 @@ int BiblDB::InitWebDriver()
 	int ires = PyRun_SimpleString("import biblpy");
 	ires = PyRun_SimpleString("driver = biblpy.InitWebDriver()");
 	ires = PyRun_SimpleString("wos = biblpy.Wos(driver)");
-	ires = PyRun_SimpleString("gs  = biblpy.GScholar(driver)");
+	ires = PyRun_SimpleString("gs_m  = biblpy.GScholar(driver)");
 	// ires = PyRun_SimpleString("wos.open_main_page()");
 	if (PyErr_Occurred()) {  // PyErr_Print(); 
 		PyErr_Clear();
@@ -6464,15 +6464,15 @@ int BiblDB::GotoGScholarRefDriver(BiblRef& ref)
 	std::string cmd;
 	if (!ref.title.empty())
 	{
-		cmd = std::string("gs.open_main_page()");
+		cmd = std::string("gs_m.open_main_page()");
 		RunPythonScriptInString(cmd);
-		cmd = std::string("gs.find_ref_by_title(") + "\"" + ref.title + "\"" + ")";
+		cmd = std::string("gs_m.find_ref_by_title(") + "\"" + ref.title + "\"" + ")";
 		RunPythonScriptInString(cmd);
-		cmd = std::string("import biblpy.gs");
+		cmd = std::string("import biblpy");
 		RunPythonScriptInString(cmd);
-		cmd = std::string("dlg1 = biblpy.gs.GSRefDlg(None, -1, \"Test1\")");
+		cmd = std::string("dlg_gs = biblpy.GSRefDlg(gs_m = gs_m)");
 		RunPythonScriptInString(cmd);
-		cmd = "dlg1.Show()";
+		cmd = "dlg_gs.Show()";
 		RunPythonScriptInString(cmd);
 	}
 	else
