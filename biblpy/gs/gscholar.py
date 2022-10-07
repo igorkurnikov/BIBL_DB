@@ -38,7 +38,6 @@ class GScholar:
     def find_info_from_refs( self ): 
         """ get information from the list of references """
 
-        
         elem_ccl_mid = self.driver.find_element(By.ID,"gs_res_ccl_mid")
         print( elem_ccl_mid )
         if( elem_ccl_mid ):
@@ -52,15 +51,28 @@ class GScholar:
                 if( cid ): print(" cid = " + cid )
                 if( did ): print(" did = " + did )
                 if( lid ): print(" lid = " + lid )
-                elem_cited = ref_el.find_element(By.XPATH,"//a[contains(text(),'Cited by')]")
+                elem_cited = None
+                try:
+                    elem_cited = ref_el.find_element(By.XPATH,"//a[contains(text(),'Cited by')]")
+                except:
+                    pass
                 if( elem_cited ):
                     href = elem_cited.get_attribute("href")
-                    print(href)
-                elem_versions = ref_el.find_element(By.XPATH,"//a[contains(text(),'versions')]")
+                    print(f"Cited By href = {href}")
+                elem_versions = None
+                try:
+                    elem_versions = ref_el.find_element(By.XPATH,"//a[contains(text(),'versions')]")
+                except:
+                    pass
                 if( elem_versions ):
                     href = elem_versions.get_attribute("href")
-                    print(href)
-                
+                    print(f"Versions href = {href}")
+                authors = []
+                try:
+                    elem_ref_sh = ref_el.find_elements(By.CLASS_NAME,"gs_a")
+                except:
+                    pass
+
 
     def find_citing_refs( self ):
         

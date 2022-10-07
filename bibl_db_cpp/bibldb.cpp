@@ -1310,20 +1310,22 @@ BiblRef BiblDB::GetRefByID(int ref_id_a, int option )
 
 		  SQLQuery(query.c_str(), &str_arr);
 
-		  unsigned int ic = 0;
-
-		  if( option & GET_REF_ABSTRACT && str_arr.size() >= (ic+1) )
+		  if( option & GET_REF_ABSTRACT && str_arr.size() >= 1 )
 		  {
-			ref.abstract_str = str_arr[ic];
-			ic++;
-			boost::replace_all(ref.abstract_str,"&quot;","\"");
-			boost::replace_all(ref.abstract_str,"&apos;","\'");
+			  for (int idx = 0; idx < str_arr.size(); idx = idx + 2)
+			  {
+				  if (str_arr[idx].size() > ref.abstract_str.size()) ref.abstract_str = str_arr[idx];
+			  }
+			  boost::replace_all(ref.abstract_str,"&quot;","\"");
+			  boost::replace_all(ref.abstract_str,"&apos;","\'");
 		  }
 
-		  if( option & GET_REF_NOTES && str_arr.size() >= (ic+1))
+		  if( option & GET_REF_NOTES && str_arr.size() >= 2)
 		  {
-			 ref.notes = str_arr[ic];
-			 ic++;
+			 for (int idx = 1; idx < str_arr.size(); idx = idx + 2)
+			 {
+				  ref.notes += str_arr[idx];
+			 }
 			 boost::replace_all(ref.notes,"&quot;","\"");
 		 	 boost::replace_all(ref.notes,"&apos;","\'");
 		  }
@@ -4346,13 +4348,16 @@ int BiblDB::UpdateReferenceDB( const BiblRef& bref, int force_update)
 
 	std::vector<std::string> str_arr;
 
-	if( !bref.abstract_str.empty() || force_update )
+	if( bref.abstract_str.size() > 10  || force_update )
 	{
 		str = bref.abstract_str;
 		boost::replace_all(str,"\"","&quot;");
 		boost::replace_all(str,"\'","&apos;");
+		std::string note_str = "";
 		
-		query = boost::str(boost::format("REPLACE INTO ABSTRACTS (REF_ID,ABSTRACT) VALUES (%d,\"%s\")") % ref_id % str);
+		query = boost::str(boost::format("DELETE FROM ABSTRACTS WHERE REF_ID = (%d)") % ref_id );
+		SQLQuery(query);
+		query = boost::str(boost::format("INSERT INTO ABSTRACTS (REF_ID,ABSTRACT,NOTE) VALUES (%d,\"%s\",\"%s\")") % ref_id % str % note_str );
 		SQLQuery(query);
 	}
 
@@ -4664,6 +4669,9 @@ int BiblDB::SQLQuery(const std::string& query, std::vector<std::string>* p_resp)
 		   {
 			   while( row = mysql_fetch_row(res) )
 			   {
+				   unsigned long* lengths;
+				   lengths = mysql_fetch_lengths(res);
+
 				   int j;
 				   for(j = 0; j < num_cols_sql; j++)
 				   {
@@ -5308,6 +5316,7 @@ int BiblDB::ImportRefsBibTeXStr(std::string refs_str, const BibRefInfo* p_ref_in
 				{
 					boost::trim(tokens[1]);
 					bref.last_page = tokens[1];
+					if (tokens.size() > 1 && bref.last_page.size() == 0) bref.last_page = tokens[2];
 				}
 			}
 			continue;
@@ -5999,11 +6008,11 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 			if (!bref.abstract_str.empty() && bref.abstract_str[bref.abstract_str.size() - 1] != '-') bref.abstract_str += " ";
 			bref.abstract_str += val;
 		}
-		if (tag_new == "N2")
-		{
-			if (val.find("Abstract") == 0) val = val.substr(9);
-			bref.abstract_str += val;
-		}
+		//if (tag_new == "N2")
+		//{
+		//	if (val.find("Abstract") == 0) val = val.substr(9);
+		//	bref.abstract_str += val;
+		//}
 
 		long ltmp;
 

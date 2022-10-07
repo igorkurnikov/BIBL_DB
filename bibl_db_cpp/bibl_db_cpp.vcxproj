@@ -128,7 +128,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Python38\include;C:\MYPROG\Phoenix\ext\wxWidgets\include;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswud;C:\MYPROG\vcpkg\installed\x64-windows\include;C:\MYPROG\vcpkg\installed\x64-windows\include\mysql;$(MSBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\MYPROG\Phoenix\ext\wxWidgets\include;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll\mswud;$(VcpkgRoot)\installed\x64-windows\include;$(VcpkgRoot)\installed\x64-windows\include\python3.9;$(VcpkgRoot)\installed\x64-windows\include\mysql;$(MSBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;WXUSINGDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -140,7 +140,7 @@
     <Link>
       <AdditionalDependencies>libmysql.lib;ws2_32.lib;Rpcrt4.lib;comctl32.lib;wxbase31ud.lib;wxbase31ud_net.lib;wxmsw31ud_core.lib;wxmsw31ud_adv.lib;wxmsw31ud_stc.lib;boost_filesystem-vc140-mt-gd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>..\$(ProjectName)_deb.exe</OutputFile>
-      <AdditionalLibraryDirectories>C:\Python38\libs;C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;C:\MYPROG\vcpkg\installed\x64-windows\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\MYPROG\Phoenix\ext\wxWidgets\lib\vc140_x64_dll;$(VcpkgRoot)\installed\x64-windows\debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>

@@ -30,7 +30,7 @@ def InitWebDriver( use_user_data = False ):
     options = webdriver.ChromeOptions() 
     prefs = {"plugins.always_open_pdf_externally": True}
     #prefs = {"plugins.always_open_pdf_externally": True, "download.default_directory": download_dir }
-    #options.add_experimental_option("excludeSwitches", ['enable-automation'])  # not to show controlled by automation software banner
+    options.add_experimental_option("excludeSwitches", ['enable-automation'])  # not to show controlled by automation software banner
     options.add_experimental_option("prefs", prefs)
     if use_user_data : 
         options.add_argument('user-data-dir=C:/Users/igor/AppData/Local/Google/Chrome/User Data')

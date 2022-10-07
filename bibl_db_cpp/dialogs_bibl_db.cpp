@@ -3224,8 +3224,6 @@ void ImportRefsDlg::OnLoadFromTextBox(wxCommandEvent& event)
 
 	wxRadioBox* format_radio_box = (wxRadioBox*) FindWindow(IDC_REF_FORMAT);
 
-	wxStringInputStream stream(refs_text);
-
 	wxString format = format_radio_box->GetStringSelection();
 
 	if( format == "PubMed XML" )
@@ -3234,6 +3232,7 @@ void ImportRefsDlg::OnLoadFromTextBox(wxCommandEvent& event)
 	}
 	else if( format == "ISI" )
 	{
+		wxStringInputStream stream(refs_text);
 		bibl_db->ImportRefsISI(stream,&ref_info);
 	}
 	else if ( format == "BibTeX" )
@@ -3241,8 +3240,11 @@ void ImportRefsDlg::OnLoadFromTextBox(wxCommandEvent& event)
 		bibl_db->ImportRefsBibTeXStr( refs_text.ToStdString(), &ref_info );
 	}
 	else if (format == "RIS")
-	{
-		std::stringstream is(refs_text.ToStdString());
+	{ 
+		std::string refs_std_str(refs_text.ToUTF8());
+		// std::string refs_std_str = refs_text.ToStdString();
+		printf("ImportRefsDlg::OnLoadFromTextBox() refs_std_str = %s \n", refs_std_str.c_str());
+		std::stringstream is(refs_std_str);
 		bibl_db->ImportRefsRIS(is, &ref_info);
 	}
 	else if (format == "NBIB")
@@ -3394,7 +3396,8 @@ bool StdStringValidator::TransferFromWindow()
 {
 	wxTextCtrl* ctrl = (wxTextCtrl*) GetWindow();
 	wxString str = ctrl->GetValue();
-	*pstr = str.ToStdString();
+	std::string s_str(str.ToUTF8());
+	*pstr = s_str;
 	return true;
 }
 
