@@ -689,9 +689,10 @@ wxSizer *edit_ref_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
         wxT("Journal Article"), 
         wxT("In Series"), 
         wxT("Book"), 
-        wxT("Book Chapter")
+        wxT("Book Chapter"), 
+        wxT("Preprint")
     };
-    wxComboBox *item3 = new wxComboBox( parent, IDC_REF_TYPE_COMBO, wxT(""), wxDefaultPosition, wxSize(160,-1), 4, strs3, wxCB_DROPDOWN );
+    wxComboBox *item3 = new wxComboBox( parent, IDC_REF_TYPE_COMBO, wxT(""), wxDefaultPosition, wxSize(160,-1), 5, strs3, wxCB_DROPDOWN );
     item1->Add( item3, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxButton *item4 = new wxButton( parent, IDC_SAVE_CHANGES, wxT("Save Changes"), wxDefaultPosition, wxDefaultSize, 0 );

@@ -19,6 +19,7 @@
 #include "wx/wfstream.h"
 #include "wx/sstream.h"
 #include "wx/txtstrm.h"
+#include <wx/filename.h>
 #include <wx/log.h>
 
 #include "tinyxml.h"
@@ -33,6 +34,8 @@
 #include <strstream>
 #include <string>
 #include <algorithm>
+#include <locale>
+#include <codecvt>
 
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -2328,6 +2331,23 @@ int BiblDB::SaveRefPDF(const BiblRef& bref, std::string pdf_path, bool overwrite
 		return FALSE;
 	}
 
+	wxString pdf_path_wx = wxString::FromUTF8(pdf_path);
+	bool exist_wx = wxFileName::FileExists(pdf_path_wx);
+
+	pdf_path = pdf_path_wx.c_str();
+
+	boost::filesystem::path pdf_path_2(pdf_path);
+	boost::filesystem::path pdf_dir = pdf_path_2.parent_path();
+
+	std::string fname;
+	boost::filesystem::directory_iterator itr(pdf_dir);
+	while (itr != boost::filesystem::directory_iterator{})
+	{
+		fname = (*itr).path().string();
+		itr++;
+	}
+	bool exists_boost_1 = boost::filesystem::exists(fname);
+
 	if (!boost::filesystem::exists(pdf_path))
 	{
 		wxLogMessage("Error in BiblDB::SaveRefPDF():  file %s doesn't exist ", wxString::FromUTF8(pdf_path));
@@ -2806,7 +2826,15 @@ std::string BiblDB::GetBiblDir()
 	std::string path = "c:\\users\\igor\\Google Drive\\bibl\\";
 
 	return path;
+}
 
+std::string BiblDB::GetPaperpileDir()
+{
+	//	std::string path = "c:\\bibl\\";
+	//	std::string path = "d:\\Google Drive\\bibl\\";
+	std::string path = "c:/users/igor/Google Drive/Paperpile/";
+
+	return path;
 }
 
 std::string BiblDB::GetLocDir_DOI(const BiblRef& bref)
@@ -2844,7 +2872,7 @@ bool BiblDB::IsSourceInfoComplete(const BiblRef& bref) const
 				if (!bref.last_page.empty()) return true;
 			}
 		}
-		if (IsPreprintJournal(bref.jrn) && !bref.vol.empty()) return true;
+		if ( (bref.ref_type == BIB_REF_PREPRINT || IsPreprintJournal(bref.jrn)) && !bref.vol.empty()) return true;
 	}
 	return false;
 }
@@ -2887,7 +2915,7 @@ std::string BiblDB::GetStdPrefix(const BiblRef& bref) const
 	prefix += sh_j_name;
 	prefix += "_";
 
-	if (IsPreprintJournal(bref.jrn))
+	if (bref.ref_type == BIB_REF_PREPRINT || IsPreprintJournal(bref.jrn))
 	{
 		prefix += vol_str;
 	}
@@ -3034,7 +3062,7 @@ JournalRef BiblDB::GetJournalByID(int journal_id_a)
 
     query = "SELECT ";
 	query += "JOURNAL_ID, FULL_NAME, STD_ABBREVIATION, STD_SHORT_ABBREVIATION,";
-	query += "FNAME_ABBREVIATION, PUBLISHER_ID, ABBR_29, ISSN, ESSN, NLM_ID, PUBLISHER_STR ";
+	query += "FNAME_ABBREVIATION, PUBLISHER_ID, ABBR_29, ISSN, ESSN, NLM_ID, PUBLISHER_STR, PRIMARY_CLASS ";
 	query += "FROM JOURNALS WHERE ";
 	query += where_str;
 
@@ -3059,6 +3087,7 @@ JournalRef BiblDB::GetJournalByID(int journal_id_a)
 			 if(row[8]) journal_ref.essn         = row[8];
 			 if(row[9]) journal_ref.nlm_id         = row[9];
 			 if(row[10]) journal_ref.publisher_str = row[10];
+			 if (row[11]) journal_ref.primary_class = row[11];
 		  }
           mysql_free_result(res);
 	   }
@@ -3190,6 +3219,15 @@ int BiblDB::UpdateJournal(const JournalRef& jrn_ref, int force_update)
 			field_list += str(boost::format("PUBLISHER_ID = \"%s\",") % jrn_ref.publisher_id);
 		}
 	}
+
+	if (!jrn_ref.primary_class.empty())
+	{
+		if (jrn_ref_old.primary_class.empty() || (force_update && (jrn_ref.primary_class != jrn_ref_old.primary_class)))
+		{
+			field_list += str(boost::format("PRIMARY_CLASS = \"%s\",") % jrn_ref.primary_class);
+		}
+	}
+
 
 	if( !jrn_ref.abbr_29.empty())
 	{
@@ -3392,6 +3430,11 @@ int BiblDB::CreateNewJournal(const JournalRef& jrn_ref)
 		   query += ",";
 		   query += "PUBLISHER_STR";
 	   }
+	   if (!jrn_ref.primary_class.empty())
+	   {
+		   query += ",";
+		   query += "PRIMARY_CLASS";
+	   }
 	   query += ") VALUES (";
 	   query += "\'";
 	   query += id_str;
@@ -3433,6 +3476,12 @@ int BiblDB::CreateNewJournal(const JournalRef& jrn_ref)
 		  query += ",\'";
 		  query += jrn_ref.publisher_str;
 		  query += "\'";
+	   }
+	   if (!jrn_ref.primary_class.empty())
+	   {
+		   query += ",\'";
+		   query += jrn_ref.primary_class;
+		   query += "\'";
 	   }
 	   query += ")";
 
@@ -5898,6 +5947,7 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 			set_update_current = FALSE;
 			if (val[0] == 'J') bref.ref_type = BIB_REF_TYPE_JOURNAL;
 			if (val[0] == 'S') bref.ref_type = BIB_REF_TYPE_IN_SERIES;
+			if (val == "INPR") bref.ref_type = BIB_REF_PREPRINT;
 			incomplete_kw = FALSE;
 			tag_old = "TY";
 			cited_refs_strs.clear();
@@ -5957,6 +6007,28 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 				if (!bref.book_title.empty()) bref.book_title += " ";
 				bref.book_title += val;
 			}
+			if (bref.ref_type == BIB_REF_PREPRINT)
+			{
+				bref.jrn.full_name = val;
+				bref.jrn.std_abbr = val;
+				pos = val.find('[');
+				if (pos != std::string::npos)
+				{
+					size_t pos_end = val.find(']');
+					if (pos_end != std::string::npos) bref.jrn.primary_class = val.substr(pos + 1, pos_end - pos - 1);
+					bref.jrn.short_abbr = val.substr(0, pos);
+					boost::trim(bref.jrn.short_abbr);
+					bref.jrn.fname_abbr = val.substr(0, pos);
+					boost::trim(bref.jrn.fname_abbr);
+					boost::algorithm::to_lower(bref.jrn.fname_abbr);
+				}
+				else
+				{
+					bref.jrn.short_abbr = val;
+					bref.jrn.fname_abbr = val;
+					boost::algorithm::to_lower(bref.jrn.fname_abbr);
+				}
+			}
 		}
 
 		if (tag_new == "SE" )
@@ -5987,14 +6059,19 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 
 		if (tag_new == "SN")
 		{
-			bref.jrn.issn = val;
-			boost::trim(bref.jrn.issn);
+			if (bref.ref_type == BIB_REF_PREPRINT)
+			{
+				bref.vol = val;
+			}
+			else
+			{
+				bref.jrn.issn = val;
+			}
 		}
 
 		if (tag_new == "PB")
 		{
 			bref.jrn.publisher_str = val;
-			boost::trim(bref.jrn.publisher_str);
 		}
 
 		if (tag_new == "KW")
@@ -6050,6 +6127,15 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 			pos = val.find("doi.org");
 			if( pos != std::string::npos ) val = val.substr(pos + 8);
 			bref.doi = val;
+		}
+		if (tag_new == "L1")
+		{
+			std::string paperpile_dir = this->GetPaperpileDir();
+			if (paperpile_dir.size() > 0)
+			{
+				std::string paperpile_pdf = paperpile_dir + val;
+				SaveRefPDF(bref, paperpile_pdf);
+			}
 		}
 
 		if (tag_new == "ER")
@@ -6466,7 +6552,12 @@ int BiblDB::GotoGScholarRefDriver(BiblRef& ref)
 	{
 		cmd = std::string("gs_m.open_main_page()");
 		RunPythonScriptInString(cmd);
-		cmd = std::string("gs_m.find_ref_by_title(") + "\"" + ref.title + "\"" + ")";
+		if (ref.doi.size() > 5)
+			cmd = std::string("gs_m.find_ref_by_doi(") + "\"" + ref.doi + "\"" + ")";
+		else if (ref.title.size() > 5)
+			cmd = std::string("gs_m.find_ref_by_title(") + "\"" + ref.title + "\"" + ")";
+		else
+			return FALSE;
 		RunPythonScriptInString(cmd);
 		cmd = std::string("import biblpy");
 		RunPythonScriptInString(cmd);

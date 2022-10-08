@@ -1961,7 +1961,7 @@ bool EditRefDlg::TransferDataToWindow()
 	}
 
 	wxComboBox* ref_type_combo = (wxComboBox*) FindWindow( IDC_REF_TYPE_COMBO );
-	if(bref.ref_type < 4) 
+	if(bref.ref_type < 5) 
 	{
 		ref_type_combo->SetSelection(bref.ref_type);
 	}

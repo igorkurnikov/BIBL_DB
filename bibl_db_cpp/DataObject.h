@@ -71,6 +71,7 @@ public:
 	std::string std_abbr;     //!< Standard Abbreviation
 	std::string short_abbr;
 	std::string fname_abbr;    //!< Prefix to use in article file names
+	std::string primary_class;  //!< Primary subject of the journal or Archive 
 	std::string publisher_id;  //!< Publisher id 
 	std::string abbr_29;       //!< 29 character abbreviation
 	std::string issn;          //!< ISSN number of the journal
@@ -85,6 +86,7 @@ const int BIB_REF_TYPE_JOURNAL = 0;
 const int BIB_REF_TYPE_IN_SERIES = 1;
 const int BIB_REF_TYPE_BOOK = 2;
 const int BIB_REF_TYPE_BOOK_CHAPTER = 3;
+const int BIB_REF_PREPRINT = 4;
 
 class BiblRef : public DataObject
 {

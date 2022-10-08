@@ -35,6 +35,19 @@ class GScholar:
         except:
             print("Reference was not found on Google Scholar ")
 
+    def find_ref_by_doi( self, doi : str): 
+        """ Find paper by paper doi """ 
+        self.open_main_page()
+        try:
+            elem = self.driver.find_element(By.ID,"gs_hdr_tsi")
+            if(elem):
+              elem.send_keys(doi)
+            elem = self.driver.find_element(By.ID,"gs_hdr_tsb")
+            if(elem):
+              elem.click()
+        except:
+            print("Reference was not found on Google Scholar ")
+
     def find_info_from_refs( self ): 
         """ get information from the list of references """
 

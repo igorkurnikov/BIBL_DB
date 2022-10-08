@@ -213,6 +213,7 @@ public:
   int GetAnnuRevRefInfo(const BiblRef& bref, RefWebInfo& web_info); //!< Get Info on Web Location of reference from AnnuaL Review type journal 
 
   std::string GetBiblDir(); //!< Get local bibl directory 
+  std::string GetPaperpileDir(); //!< Get Paperpile directory for saved PDF files
   std::string GetLocPrefix(const BiblRef& bref); //!< Get prefix of the files (PDF,HTML..) corresponding to the reference
   std::string GetLocDir_DOI(const BiblRef& bref); //!< Get Local DOI directory for the reference 
   std::string GetLocDir_default(const BiblRef& bref); //!< Get Local default directory for the reference 
