@@ -916,10 +916,10 @@ class BiblRef(DataObject):
     __swig_getmethods__["pii_id"] = _bibldbc.BiblRef_pii_id_get
     if _newclass:
         pii_id = _swig_property(_bibldbc.BiblRef_pii_id_get, _bibldbc.BiblRef_pii_id_set)
-    __swig_setmethods__["medline_id"] = _bibldbc.BiblRef_medline_id_set
-    __swig_getmethods__["medline_id"] = _bibldbc.BiblRef_medline_id_get
+    __swig_setmethods__["pmc_id"] = _bibldbc.BiblRef_pmc_id_set
+    __swig_getmethods__["pmc_id"] = _bibldbc.BiblRef_pmc_id_get
     if _newclass:
-        medline_id = _swig_property(_bibldbc.BiblRef_medline_id_get, _bibldbc.BiblRef_medline_id_set)
+        pmc_id = _swig_property(_bibldbc.BiblRef_pmc_id_get, _bibldbc.BiblRef_pmc_id_set)
     __swig_setmethods__["incomplete_auth_flag"] = _bibldbc.BiblRef_incomplete_auth_flag_set
     __swig_getmethods__["incomplete_auth_flag"] = _bibldbc.BiblRef_incomplete_auth_flag_get
     if _newclass:

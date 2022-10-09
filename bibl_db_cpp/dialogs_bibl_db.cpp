@@ -1928,11 +1928,23 @@ void EditRefDlg::OnInitDialog()
 	txt_ctrl = (wxTextCtrl*) FindWindow(IDC_PUBMED_ID);
     txt_ctrl->SetValidator( StdStringValidator(&bref.pubmed_id));
 
+	txt_ctrl = (wxTextCtrl*)FindWindow(IDC_PMC_ID);
+	txt_ctrl->SetValidator(StdStringValidator(&bref.pmc_id));
+
 	txt_ctrl = (wxTextCtrl*) FindWindow(IDC_PII_ID);
     txt_ctrl->SetValidator( StdStringValidator(&bref.pii_id));
 
 	txt_ctrl = (wxTextCtrl*) FindWindow(IDC_TEXT_DOI);
     txt_ctrl->SetValidator( StdStringValidator(&bref.doi));
+
+	txt_ctrl = (wxTextCtrl*)FindWindow(IDC_GS_ID_CLUSTER);
+	txt_ctrl->SetValidator(StdStringValidator(&bref.gs_id_cluster));
+
+	txt_ctrl = (wxTextCtrl*)FindWindow(IDC_GS_DID);
+	txt_ctrl->SetValidator(StdStringValidator(&bref.gs_did));
+
+	txt_ctrl = (wxTextCtrl*)FindWindow(IDC_GS_ID_BIBTEX);
+	txt_ctrl->SetValidator(StdStringValidator(&bref.gs_id_bibtex));
 
 	txt_ctrl = (wxTextCtrl*) FindWindow(IDC_TEXT_IMPORTANCE);
     txt_ctrl->SetValidator( wxGenericValidator(&bref.importance));

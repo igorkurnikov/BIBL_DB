@@ -170,7 +170,10 @@ BiblRef::BiblRef(const BiblRef& bref_old)
 	doi = bref_old.doi;
 	url = bref_old.url;
 	pii_id = bref_old.pii_id;
-	medline_id = bref_old.medline_id;
+	pmc_id = bref_old.pmc_id;
+	gs_id_cluster = bref_old.gs_id_cluster;
+	gs_did        = bref_old.gs_did;
+	gs_id_bibtex  = bref_old.gs_id_bibtex;
 	incomplete_auth_flag = bref_old.incomplete_auth_flag;
 	num_cited_in = bref_old.num_cited_in;
 	num_citing = bref_old.num_citing;
@@ -213,7 +216,10 @@ void BiblRef::Clear()
 	doi = "";
 	url = "";
 	pii_id = "";
-	medline_id = "";
+	pmc_id = "";
+	gs_id_cluster = "";
+	gs_did = "";
+	gs_id_bibtex = "";
 	authors_str = "";
 	incomplete_auth_flag = 0;
 	num_cited_in = 0;

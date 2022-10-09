@@ -863,59 +863,87 @@ wxSizer *edit_ref_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
 
     wxBoxSizer *item56 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxStaticText *item57 = new wxStaticText( parent, ID_TEXT, wxT("PubMed ID:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText *item57 = new wxStaticText( parent, ID_TEXT, wxT("DOI:"), wxDefaultPosition, wxDefaultSize, 0 );
     item56->Add( item57, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item58 = new wxTextCtrl( parent, IDC_PUBMED_ID, wxT(""), wxDefaultPosition, wxSize(120,-1), 0 );
-    item56->Add( item58, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxTextCtrl *item58 = new wxTextCtrl( parent, IDC_TEXT_DOI, wxT(""), wxDefaultPosition, wxSize(120,-1), 0 );
+    item56->Add( item58, 1, wxALIGN_CENTER|wxALL, 5 );
 
-    wxStaticText *item59 = new wxStaticText( parent, ID_TEXT, wxT("DOI:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText *item59 = new wxStaticText( parent, ID_TEXT, wxT("PubMed ID:"), wxDefaultPosition, wxDefaultSize, 0 );
     item56->Add( item59, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item60 = new wxTextCtrl( parent, IDC_TEXT_DOI, wxT(""), wxDefaultPosition, wxSize(160,-1), 0 );
-    item56->Add( item60, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxTextCtrl *item60 = new wxTextCtrl( parent, IDC_PUBMED_ID, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
+    item56->Add( item60, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxStaticText *item61 = new wxStaticText( parent, ID_TEXT, wxT("PMC_ID:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item56->Add( item61, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item62 = new wxTextCtrl( parent, IDC_PMC_ID, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
+    item56->Add( item62, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item0->Add( item56, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
-    wxBoxSizer *item61 = new wxBoxSizer( wxHORIZONTAL );
+    wxBoxSizer *item63 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxStaticText *item62 = new wxStaticText( parent, ID_TEXT, wxT("URL:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item61->Add( item62, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxStaticText *item64 = new wxStaticText( parent, ID_TEXT, wxT("GS CLUSTER ID:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item63->Add( item64, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item63 = new wxTextCtrl( parent, IDC_TEXT_URL, wxT(""), wxDefaultPosition, wxSize(390,-1), 0 );
-    item61->Add( item63, 1, wxALIGN_CENTER|wxALL, 0 );
+    wxTextCtrl *item65 = new wxTextCtrl( parent, IDC_GS_ID_CLUSTER, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
+    item63->Add( item65, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item61, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    wxStaticText *item66 = new wxStaticText( parent, ID_TEXT, wxT("GS DID:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item63->Add( item66, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxBoxSizer *item64 = new wxBoxSizer( wxHORIZONTAL );
+    wxTextCtrl *item67 = new wxTextCtrl( parent, IDC_GS_DID, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
+    item63->Add( item67, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxStaticText *item65 = new wxStaticText( parent, ID_TEXT, wxT("Key Words:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item64->Add( item65, 0, wxALIGN_CENTER|wxALL, 5 );
+    wxStaticText *item68 = new wxStaticText( parent, ID_TEXT, wxT("GS BIBTEX ID:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item63->Add( item68, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item66 = new wxTextCtrl( parent, IDC_TEXT_KEYWORDS, wxT(""), wxDefaultPosition, wxSize(380,50), wxTE_MULTILINE );
-    item64->Add( item66, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+    wxTextCtrl *item69 = new wxTextCtrl( parent, IDC_GS_ID_BIBTEX, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
+    item63->Add( item69, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    item0->Add( item64, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
-
-    wxBoxSizer *item67 = new wxBoxSizer( wxHORIZONTAL );
-
-    wxStaticText *item68 = new wxStaticText( parent, ID_TEXT, wxT("Abstract:"), wxDefaultPosition, wxDefaultSize, 0 );
-    item67->Add( item68, 0, wxALIGN_CENTER|wxALL, 5 );
-
-    wxTextCtrl *item69 = new wxTextCtrl( parent, IDC_TEXT_ABSTRACT, wxT(""), wxDefaultPosition, wxSize(390,80), wxTE_MULTILINE );
-    item67->Add( item69, 1, wxALIGN_CENTER|wxALL, 5 );
-
-    item0->Add( item67, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    item0->Add( item63, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
 
     wxBoxSizer *item70 = new wxBoxSizer( wxHORIZONTAL );
 
-    wxStaticText *item71 = new wxStaticText( parent, ID_TEXT, wxT("Notes:"), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText *item71 = new wxStaticText( parent, ID_TEXT, wxT("URL:"), wxDefaultPosition, wxDefaultSize, 0 );
     item70->Add( item71, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxListCtrl *item72 = new wxListCtrl( parent, IDC_LIST_NOTES, wxDefaultPosition, wxSize(160,40), wxLC_SMALL_ICON|wxSUNKEN_BORDER );
-    item70->Add( item72, 1, wxALIGN_CENTER|wxALL, 5 );
+    wxTextCtrl *item72 = new wxTextCtrl( parent, IDC_TEXT_URL, wxT(""), wxDefaultPosition, wxSize(390,-1), 0 );
+    item70->Add( item72, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 0 );
 
-    item0->Add( item70, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+    item0->Add( item70, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item73 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item74 = new wxStaticText( parent, ID_TEXT, wxT("Key Words:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item73->Add( item74, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item75 = new wxTextCtrl( parent, IDC_TEXT_KEYWORDS, wxT(""), wxDefaultPosition, wxSize(380,50), wxTE_MULTILINE );
+    item73->Add( item75, 1, wxGROW|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+    item0->Add( item73, 1, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item76 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item77 = new wxStaticText( parent, ID_TEXT, wxT("Abstract:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item76->Add( item77, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxTextCtrl *item78 = new wxTextCtrl( parent, IDC_TEXT_ABSTRACT, wxT(""), wxDefaultPosition, wxSize(390,80), wxTE_MULTILINE );
+    item76->Add( item78, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item76, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
+
+    wxBoxSizer *item79 = new wxBoxSizer( wxHORIZONTAL );
+
+    wxStaticText *item80 = new wxStaticText( parent, ID_TEXT, wxT("Notes:"), wxDefaultPosition, wxDefaultSize, 0 );
+    item79->Add( item80, 0, wxALIGN_CENTER|wxALL, 5 );
+
+    wxListCtrl *item81 = new wxListCtrl( parent, IDC_LIST_NOTES, wxDefaultPosition, wxSize(160,40), wxLC_SMALL_ICON|wxSUNKEN_BORDER );
+    item79->Add( item81, 1, wxALIGN_CENTER|wxALL, 5 );
+
+    item0->Add( item79, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     if (set_sizer)
     {

@@ -1224,7 +1224,7 @@ BiblRef BiblDB::GetRefByID(int ref_id_a, int option )
 	query += " JOURNAL_ID, VOLUME, ISSUE, ";
 	query += " PUB_YEAR, PUB_MONTH, FIRST_PAGE, LAST_PAGE, ";
 	query += " ISI_ID, ISI_ID_INT, GA_CODE, PUBMED_ID, ";
-	query += " REPRINT_STATUS, IMPORTANCE, DOI, URL, PII_ID, MEDLINE_ID, AUTHORS_STR, INCOMPLETE_FLAG, ";
+	query += " REPRINT_STATUS, IMPORTANCE, DOI, URL, PII_ID, PMC_ID, GS_ID_CLUSTER, GS_DID, GS_ID_BIBTEX, AUTHORS_STR, INCOMPLETE_FLAG, ";
 	query += " NUM_CITED_IN, NUM_CITING, LAST_UPDATE_TIME ";
 	query += "FROM REFS WHERE ";
 	query += where_str;
@@ -1263,12 +1263,15 @@ BiblRef BiblDB::GetRefByID(int ref_id_a, int option )
 	         if(row[18]) ref.doi            = row[18];
 			 if(row[19]) ref.url            = row[19];
 			 if(row[20]) ref.pii_id         = row[20];
-			 if(row[21]) ref.medline_id     = row[21];
-			 if(row[22]) ref.authors_str         = row[22];
-			 if(row[23]) ref.incomplete_auth_flag     = atoi(row[23]);
-			 if(row[24]) ref.num_cited_in             = atoi(row[24]);
-			 if(row[25]) ref.num_citing               = atoi(row[25]);
-			 if(row[26]) ref.last_update_time         = atol(row[26]);
+			 if(row[21]) ref.pmc_id     = row[21];
+			 if(row[22]) ref.gs_id_cluster = row[22];
+			 if(row[23]) ref.gs_did        = row[23];
+			 if(row[24]) ref.gs_id_bibtex  = row[24];
+			 if(row[25]) ref.authors_str              = row[25];
+			 if(row[26]) ref.incomplete_auth_flag     = atoi(row[26]);
+			 if(row[27]) ref.num_cited_in             = atoi(row[27]);
+			 if(row[28]) ref.num_citing               = atoi(row[28]);
+			 if(row[29]) ref.last_update_time         = atol(row[29]);
 
 //			 time = ::wxGetElapsedTime();
 //		     wxLogMessage("\n In GetRefByID: Time to pt2  %d ms \n", time);
@@ -1487,7 +1490,7 @@ int BiblDB::GetRefsByID(std::vector<int>& ref_id_vec, std::vector<BiblRef>& refs
 	query += " JOURNAL_ID, VOLUME, ISSUE, ";
 	query += " PUB_YEAR, PUB_MONTH, FIRST_PAGE, LAST_PAGE, ";
 	query += " ISI_ID, ISI_ID_INT, GA_CODE, PUBMED_ID, ";
-	query += " REPRINT_STATUS, IMPORTANCE, DOI, URL, PII_ID, MEDLINE_ID, ";
+	query += " REPRINT_STATUS, IMPORTANCE, DOI, URL, PII_ID, PMC_ID, GS_ID_CLUSTER, GS_DID, GS_ID_BIBTEX, ";
 	query += " INCOMPLETE_FLAG, NUM_CITED_IN, NUM_CITING, LAST_UPDATE_TIME ";
 	query += "FROM REFS WHERE ";
 	query += where_str;
@@ -1528,12 +1531,15 @@ int BiblDB::GetRefsByID(std::vector<int>& ref_id_vec, std::vector<BiblRef>& refs
 			if(row[18]) ref.doi            = row[18];
 			if(row[19]) ref.url            = row[19];
 			if(row[20]) ref.pii_id         = row[20];
-			if(row[21]) ref.medline_id     = row[21];
-			if(row[22]) ref.authors_str         = row[22];
-			if(row[23]) ref.incomplete_auth_flag     = atoi(row[23]);
-			if(row[24]) ref.num_cited_in             = atoi(row[24]);
-			if(row[25]) ref.num_citing               = atoi(row[25]);
-			if(row[26]) ref.last_update_time         = atol(row[26]);
+			if(row[21]) ref.pmc_id     = row[21];
+			if (row[22]) ref.gs_id_cluster = row[22];
+			if (row[23]) ref.gs_did = row[23];
+			if (row[24]) ref.gs_id_bibtex = row[24];
+			if(row[25]) ref.authors_str         = row[25];
+			if(row[26]) ref.incomplete_auth_flag     = atoi(row[26]);
+			if(row[27]) ref.num_cited_in             = atoi(row[27]);
+			if(row[28]) ref.num_citing               = atoi(row[28]);
+			if(row[29]) ref.last_update_time         = atol(row[29]);
 			
 			ref_id_map[ref.obj_id] = i;
 			i++;
@@ -1677,7 +1683,10 @@ void BiblDB::PrintRefFullStr(const BiblRef& bref, std::string& str)
 	str +=  boost::str(boost::format("isi_id_int = %d ") % bref.isi_id_int); 
 	str +=  boost::str(boost::format("ga_code = %s \n") % bref.ga_code.c_str()); 
 	str +=  boost::str(boost::format("pubmed id = %s ") % bref.pubmed_id.c_str());  
-	str +=  boost::str(boost::format("medline_id = %s \n") % bref.medline_id.c_str() );
+	str +=  boost::str(boost::format("pmc_id = %s \n") % bref.pmc_id.c_str() );
+	str +=  boost::str(boost::format("gs_id_cluster = %s ") % bref.gs_id_cluster.c_str());
+	str +=  boost::str(boost::format("gs_did = %s ") % bref.gs_did.c_str());
+	str +=  boost::str(boost::format("gs_id_bibtex = %s \n") % bref.gs_id_bibtex.c_str());
 	str +=  boost::str(boost::format("doi = %s \n") % bref.doi.c_str() ); 
 	str +=  boost::str(boost::format("url = %s \n") % bref.url.c_str() ); 
 	str +=  boost::str(boost::format("pii_id = %s \n") % bref.pii_id.c_str() ); 
@@ -2343,13 +2352,8 @@ int BiblDB::SaveRefPDF(const BiblRef& bref, std::string pdf_path_utf8, bool over
 
 	// pdf_path = pdf_path_wx.c_str();
 
-	// Get the default locale  // Should we do it just once in the beginning of the program??
-	//std::locale loc = boost::locale::generator().generate("");
-	// Set the global locale to loc
-	//std::locale::global(loc);    // this is necessary for proper conversion of filename from UTF8??
-	// Make boost.filesystem use it by default
-	//boost::filesystem::path::imbue(std::locale());
-	// Create the path (pdf_path_utf8 should be utf-8)
+	// Set std::locale in BiblDB initialization
+
 	boost::filesystem::path pdf_path(pdf_path_utf8);
 
 	fs::path pdf_dir = pdf_path.parent_path();
@@ -4389,10 +4393,28 @@ int BiblDB::UpdateReferenceDB( const BiblRef& bref, int force_update)
 		field_list += boost::str(boost::format("\"%s\"") % bref.pii_id);
 	}
 
-	if( !bref.medline_id.empty() || force_update )
+	if( !bref.pmc_id.empty() || force_update )
 	{
-		field_list  += ",MEDLINE_ID = ";
-		field_list += boost::str(boost::format("\"%s\"") % bref.medline_id);
+		field_list  += ",PMC_ID = ";
+		field_list += boost::str(boost::format("\"%s\"") % bref.pmc_id);
+	}
+
+	if (!bref.gs_id_cluster.empty() || force_update)
+	{
+		field_list += ",GS_ID_CLUSTER = ";
+		field_list += boost::str(boost::format("\"%s\"") % bref.gs_id_cluster);
+	}
+
+	if (!bref.gs_did.empty() || force_update)
+	{
+		field_list += ",GS_DID = ";
+		field_list += boost::str(boost::format("\"%s\"") % bref.gs_did);
+	}
+
+	if (!bref.gs_id_bibtex.empty() || force_update)
+	{
+		field_list += ",GS_ID_BIBTEX = ";
+		field_list += boost::str(boost::format("\"%s\"") % bref.gs_id_bibtex);
 	}
 
 	if( bref.num_cited_in > 0 || force_update )
@@ -4408,7 +4430,7 @@ int BiblDB::UpdateReferenceDB( const BiblRef& bref, int force_update)
 	}
 
 	std::string query = boost::str(boost::format("UPDATE REFS SET %s WHERE REF_ID= %d") % field_list % ref_id);
-	SQLQuery(query);
+	int res = SQLQuery(query);
 
 	std::vector<std::string> str_arr;
 
@@ -5209,7 +5231,7 @@ int BiblDB::ImportRefsPubMedXmlFile(FILE* finp, const char* kw_str)
 					if( id_type == "doi")       bref.doi          = article_id_el->GetText();
 					if( id_type == "pubmed" )   bref.pubmed_id    = article_id_el->GetText();
 					if( id_type == "pii")       bref.pii_id       = article_id_el->GetText();
-					if( id_type == "medline")   bref.medline_id   = article_id_el->GetText();
+					if( id_type == "medline")   bref.pmc_id       = article_id_el->GetText();
 
 					article_id_el = article_id_el->NextSiblingElement("ArticleId");
 				}
@@ -5692,7 +5714,7 @@ int BiblDB::ImportRefsISI( wxInputStream& stream, const BibRefInfo* p_ref_info )
 			}
 			else if( val.find("MEDLINE:") != std::string::npos )
 			{
-				bref.medline_id = val.AfterFirst(':');
+				bref.pubmed_id = val.AfterFirst(':');
 			}
 		}
 		if( tag_new == "DI") bref.doi  = val;
@@ -6112,7 +6134,14 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 		long ltmp;
 
 		if (val == "n/a") continue;
-		if (tag_new == "SP") bref.first_page = val;
+		if (tag_new == "SP")
+		{
+			std::vector<std::string> tokens;
+			boost::split(tokens, val, boost::is_any_of("-"));
+
+			bref.first_page = tokens[0];
+			if(tokens.size() > 1) bref.last_page = tokens[1];
+		}
 		if (tag_new == "EP") bref.last_page = val;
 		if (tag_new == "AR") bref.first_page = val; // Article number for journals without page number 
 		if (tag_new == "VL")
@@ -6145,6 +6174,56 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 			pos = val.find("doi.org");
 			if( pos != std::string::npos ) val = val.substr(pos + 8);
 			bref.doi = val;
+		}
+		if(tag_new == "C2" ) bref.pmc_id = val;
+
+
+		if (tag_new == "UR")  // Process links
+		{
+			if ( val.find("www.ncbi.nlm.nih.gov/pubmed/") != std::string::npos )
+			{
+				pos = val.find("pubmed");
+				if (val.size() > pos + 7)
+				{
+					std::string pubmed_id_loc = val.substr(pos + 7);
+					boost::trim(pubmed_id_loc);
+					bref.pubmed_id = pubmed_id_loc;
+				}
+			}
+			if (val.find("www.ncbi.nlm.nih.gov/pmc/articles/") != std::string::npos)
+			{
+				pos = val.find("articles");
+				if (val.size() > pos + 9)
+				{
+					std::string pmc_id_loc = val.substr(pos + 9);
+					boost::trim(pmc_id_loc);
+					if( bref.pmc_id.size() < 5 ) bref.pmc_id = pmc_id_loc;
+				}
+			}
+			if ( val.find("pii") != std::string::npos && val.find("elsevier") != std::string::npos )
+			{
+				pos = val.find("pii");
+				std::string pii_id_loc = val.substr(pos + 4);
+				boost::trim(pii_id_loc);
+				bref.pii_id = pii_id_loc;
+			}
+			if (val.find("cluster=") != std::string::npos && val.find("scholar.google") != std::string::npos)
+			{
+				pos = val.find("cluster=");
+				size_t pos_end = val.find_first_of('&',pos);
+				std::string gs_id_cluster_loc = "";
+				if (pos_end != std::string::npos)
+				{
+					gs_id_cluster_loc = val.substr(pos + 8, pos_end - pos - 8);
+				}
+				else
+				{
+					gs_id_cluster_loc = val.substr(pos + 8);
+				}
+				boost::trim(gs_id_cluster_loc);
+				bref.gs_id_cluster = gs_id_cluster_loc;
+			}
+
 		}
 		if (tag_new == "L1")
 		{
@@ -6327,13 +6406,16 @@ int BiblDB::ImportRefsNBIB(std::istream& stream, const BibRefInfo* p_ref_info)
 		if (tag_new == "SN")
 		{
 			bref.jrn.issn = val;
-			boost::trim(bref.jrn.issn);
+		}
+
+		if (tag_new == "PMC")
+		{
+			bref.pmc_id = val;
 		}
 
 		if (tag_new == "PB")
 		{
 			bref.jrn.publisher_str = val;
-			boost::trim(bref.jrn.publisher_str);
 		}
 
 		if (tag_new == "MH")

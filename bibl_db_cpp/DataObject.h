@@ -118,13 +118,17 @@ public:
 	std::string isi_id;
 	int isi_id_int;
 	std::string ga_code;
-	std::string pubmed_id;
+	std::string pubmed_id;      //!< PUBMED ID  ( PUBMDE/MEDLINE PMID ID ?? )
 	std::string reprint_status;
 	int importance;
-	std::string doi;
+	std::string doi;            //!< DOI number of the reference
 	std::string url;
-	std::string pii_id;
-	std::string medline_id;
+	std::string pii_id;         //!< Elsvier PII ID
+	std::string pmc_id;         //!< PMC (PUBMED Central ID)
+	std::string gs_id_cluster;  //!< GOOGLE SCHOLAR ID to get all variants of the paper (cluster) 
+	std::string gs_did;         //!< GOOGLE DID ID ??
+	std::string gs_id_bibtex;   //!< GOOGLE SCHOLAR ID to get bibtex reference of the paper 
+
 	int incomplete_auth_flag; //!< flag to indicate that the author list of the reference is incomplete 
 	int num_cited_in; //!< number of refs cited in the paper
 	int num_citing;   //!< number of references citing given paper
