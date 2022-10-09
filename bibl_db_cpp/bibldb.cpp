@@ -2323,34 +2323,42 @@ int BiblDB::SetKW2RefKW1(const char* kw1, const char* kw2)
 	return TRUE;
 }
 
-int BiblDB::SaveRefPDF(const BiblRef& bref, std::string pdf_path, bool overwrite)
+int BiblDB::SaveRefPDF(const BiblRef& bref, std::string pdf_path_utf8, bool overwrite)
 {
-	if (pdf_path.empty())
+	if (pdf_path_utf8.empty())
 	{
 		wxLogMessage("Error in BiblDB::SaveRefPDF():  pdf_path in empty");
 		return FALSE;
 	}
 
-	wxString pdf_path_wx = wxString::FromUTF8(pdf_path);
-	bool exist_wx = wxFileName::FileExists(pdf_path_wx);
+	// wxString pdf_path_wx = wxString::FromUTF8(pdf_path_utf8);   // wxWidget is doing the conversion properly
+	// bool exist_wx = wxFileName::FileExists(pdf_path_wx);
 
-	pdf_path = pdf_path_wx.c_str();
+	// pdf_path = pdf_path_wx.c_str();
 
-	boost::filesystem::path pdf_path_2(pdf_path);
-	boost::filesystem::path pdf_dir = pdf_path_2.parent_path();
+	// Get the default locale  // Should we do it just once in the beginning of the program??
+	std::locale loc = boost::locale::generator().generate("");
+	// Set the global locale to loc
+	std::locale::global(loc);    // this is necessary for proper conversion of filename from UTF8??
+	// Make boost.filesystem use it by default
+	boost::filesystem::path::imbue(std::locale());
+	// Create the path (pdf_path_utf8 should be utf-8)
+	boost::filesystem::path pdf_path(pdf_path_utf8);
 
-	std::string fname;
-	boost::filesystem::directory_iterator itr(pdf_dir);
-	while (itr != boost::filesystem::directory_iterator{})
-	{
-		fname = (*itr).path().string();
-		itr++;
-	}
-	bool exists_boost_1 = boost::filesystem::exists(fname);
+	fs::path pdf_dir = pdf_path.parent_path();
+
+	//std::string fname;    // check the name of the file as it read by 
+	//fs::directory_iterator itr(pdf_dir);
+	//while (itr != fs::directory_iterator{})
+	//{
+	//	fname = (*itr).path().string();
+	//	itr++;
+	//}
+	//bool exists_boost_1 = fs::exists(fname);
 
 	if (!boost::filesystem::exists(pdf_path))
 	{
-		wxLogMessage("Error in BiblDB::SaveRefPDF():  file %s doesn't exist ", wxString::FromUTF8(pdf_path));
+		wxLogMessage("Error in BiblDB::SaveRefPDF():  file %s doesn't exist ", wxString::FromUTF8(pdf_path.string()));
 		return FALSE;
 	}
 
@@ -2375,7 +2383,7 @@ int BiblDB::SaveRefPDF(const BiblRef& bref, std::string pdf_path, bool overwrite
 
 	if( !fs::exists(pdf_path_db) || (fs::exists(pdf_path_db) && overwrite) || (fs::exists(pdf_path_db) && (fs::file_size(pdf_path_db) < 100)) )
 	{
-		wxLogMessage("Copy PDF file %s to DB location %s ", wxString::FromUTF8(pdf_path), wxString::FromUTF8(pdf_path_db.string()));
+		wxLogMessage("Copy PDF file %s to DB location %s ", wxString::FromUTF8(pdf_path.string()), wxString::FromUTF8(pdf_path_db.string()));
 		fs::copy_file(pdf_path, pdf_path_db, fs::copy_option::overwrite_if_exists);
 	}
 	return TRUE;
