@@ -268,6 +268,13 @@ int BiblDB::Init()
 	sql_error_code = 0;
 	show_cit_flag = TRUE;
 
+	// Get the default locale  // Should we do it just once in the beginning of the program??
+	std::locale loc = boost::locale::generator().generate("");
+	// Set the global locale to loc
+	std::locale::global(loc);    // this is necessary for proper conversion of filename from UTF8??
+	// Make boost.filesystem use it by default
+	boost::filesystem::path::imbue(std::locale());
+
 	return TRUE;
 }
 
@@ -2337,11 +2344,11 @@ int BiblDB::SaveRefPDF(const BiblRef& bref, std::string pdf_path_utf8, bool over
 	// pdf_path = pdf_path_wx.c_str();
 
 	// Get the default locale  // Should we do it just once in the beginning of the program??
-	std::locale loc = boost::locale::generator().generate("");
+	//std::locale loc = boost::locale::generator().generate("");
 	// Set the global locale to loc
-	std::locale::global(loc);    // this is necessary for proper conversion of filename from UTF8??
+	//std::locale::global(loc);    // this is necessary for proper conversion of filename from UTF8??
 	// Make boost.filesystem use it by default
-	boost::filesystem::path::imbue(std::locale());
+	//boost::filesystem::path::imbue(std::locale());
 	// Create the path (pdf_path_utf8 should be utf-8)
 	boost::filesystem::path pdf_path(pdf_path_utf8);
 
@@ -5930,6 +5937,7 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 	BiblRef bref;
 	std::vector<std::string> cited_refs_strs;
 	int set_update_current = FALSE;
+	std::string pdf_loc_path_paperpile = ""; // local path to PDF file of the paper indicated in Paperpile RIS file 
 
 	bool already_have_journal_name = false;
 
@@ -5949,9 +5957,11 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 		val = str.substr(6);
 		boost::trim(val);
 
+
 		if (tag_new == "TY")
 		{
 			bref.Clear();
+			pdf_loc_path_paperpile = "";
 			set_update_current = FALSE;
 			if (val[0] == 'J') bref.ref_type = BIB_REF_TYPE_JOURNAL;
 			if (val[0] == 'S') bref.ref_type = BIB_REF_TYPE_IN_SERIES;
@@ -6138,12 +6148,7 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 		}
 		if (tag_new == "L1")
 		{
-			std::string paperpile_dir = this->GetPaperpileDir();
-			if (paperpile_dir.size() > 0)
-			{
-				std::string paperpile_pdf = paperpile_dir + val;
-				SaveRefPDF(bref, paperpile_pdf);
-			}
+			pdf_loc_path_paperpile = val;
 		}
 
 		if (tag_new == "ER")
@@ -6197,6 +6202,19 @@ int BiblDB::ImportRefsRIS(std::istream& stream, const BibRefInfo* p_ref_info )
 			bref = GetRefByID(ref_id, GET_REF_FULL);
 			PrintRefFullStr(bref, str);
 			wxLogMessage("Imported Reference After Saving \n%s\n", wxString::FromUTF8(str));
+
+			if (!pdf_loc_path_paperpile.empty())
+			{
+				std::string paperpile_dir = this->GetPaperpileDir();
+				if (paperpile_dir.size() > 0)
+				{
+					std::string pdf_full_path_paperpile = paperpile_dir + pdf_loc_path_paperpile;
+					wxLogMessage("Copy PDF File from Paperpile storage: \n %s \n", wxString::FromUTF8(pdf_full_path_paperpile));
+					SaveRefPDF(bref, pdf_full_path_paperpile);
+				}
+				pdf_loc_path_paperpile = "";
+			}
+
 
 			tag_new = "";
 			already_have_journal_name = false;
