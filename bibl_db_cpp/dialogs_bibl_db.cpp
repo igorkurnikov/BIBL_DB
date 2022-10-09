@@ -2098,13 +2098,13 @@ bool EditRefDlg::TransferDataFromWindow()
 			ini  = token.AfterFirst(',');
 			if( !ini.IsEmpty()) // ; - separator
 			{
-				auth_ref.last_name = token.BeforeFirst(',');
-				auth_ref.initials  = token.AfterFirst(',');
+				auth_ref.last_name = token.BeforeFirst(',').ToUTF8();
+				auth_ref.initials  = token.AfterFirst(',').ToUTF8();
 			}
 			else
 			{
-				auth_ref.last_name = token.BeforeFirst(' ');
-				auth_ref.initials  = token.AfterFirst(' ');
+				auth_ref.last_name = token.BeforeFirst(' ').ToUTF8();
+				auth_ref.initials  = token.AfterFirst(' ').ToUTF8();
 			}
 
 			boost::trim(auth_ref.initials);
