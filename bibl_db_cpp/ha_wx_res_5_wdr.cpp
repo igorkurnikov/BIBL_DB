@@ -856,7 +856,7 @@ wxSizer *edit_ref_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item54 = new wxStaticText( parent, ID_TEXT, wxT("PII ID:"), wxDefaultPosition, wxDefaultSize, 0 );
     item49->Add( item54, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item55 = new wxTextCtrl( parent, IDC_PII_ID, wxT(""), wxDefaultPosition, wxSize(120,-1), 0 );
+    wxTextCtrl *item55 = new wxTextCtrl( parent, IDC_PII_ID, wxT(""), wxDefaultPosition, wxSize(150,-1), 0 );
     item49->Add( item55, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item0->Add( item49, 0, wxALIGN_CENTER_VERTICAL|wxALL, 0 );
@@ -872,13 +872,13 @@ wxSizer *edit_ref_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item59 = new wxStaticText( parent, ID_TEXT, wxT("PubMed ID:"), wxDefaultPosition, wxDefaultSize, 0 );
     item56->Add( item59, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item60 = new wxTextCtrl( parent, IDC_PUBMED_ID, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
+    wxTextCtrl *item60 = new wxTextCtrl( parent, IDC_PUBMED_ID, wxT(""), wxDefaultPosition, wxSize(80,-1), 0 );
     item56->Add( item60, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item61 = new wxStaticText( parent, ID_TEXT, wxT("PMC_ID:"), wxDefaultPosition, wxDefaultSize, 0 );
     item56->Add( item61, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item62 = new wxTextCtrl( parent, IDC_PMC_ID, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
+    wxTextCtrl *item62 = new wxTextCtrl( parent, IDC_PMC_ID, wxT(""), wxDefaultPosition, wxSize(90,-1), 0 );
     item56->Add( item62, 0, wxALIGN_CENTER|wxALL, 5 );
 
     item0->Add( item56, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 0 );
@@ -888,7 +888,7 @@ wxSizer *edit_ref_dlg( wxWindow *parent, bool call_fit, bool set_sizer )
     wxStaticText *item64 = new wxStaticText( parent, ID_TEXT, wxT("GS CLUSTER ID:"), wxDefaultPosition, wxDefaultSize, 0 );
     item63->Add( item64, 0, wxALIGN_CENTER|wxALL, 5 );
 
-    wxTextCtrl *item65 = new wxTextCtrl( parent, IDC_GS_ID_CLUSTER, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
+    wxTextCtrl *item65 = new wxTextCtrl( parent, IDC_GS_ID_CLUSTER, wxT(""), wxDefaultPosition, wxSize(130,-1), 0 );
     item63->Add( item65, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxStaticText *item66 = new wxStaticText( parent, ID_TEXT, wxT("GS DID:"), wxDefaultPosition, wxDefaultSize, 0 );
